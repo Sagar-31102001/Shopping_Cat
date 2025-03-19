@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	th:replace="~{base::layout(~{::section})}">
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+	<section>
+		<div class="container-fluid mt-4 p-3">
+			<div class="row">
+				<p class="text-center fs-3 mt-2">All Products</p>
+				
+				<div class="col-md-4 p-3">
+
+					<form action="/admin/products" method="get">
+						<div class="row">
+							<div class="col">
+								<input type="text" class="form-control " name="ch">
+							</div>
+							<div class="col">
+								<button class="btn btn-primary col">Search</button>
+							</div>
+						</div>
+					</form>
+
+				</div>
+
+
+				<!-- <div class="card card-sh">-->
+				<div class="p-3">
+					<table class="table table-bordered">
+						<thead class="table-light ">
+							<tr>
+								<th scope="col">Sl No</th>
+								<th scope="col">Image</th>
+								<th scope="col">Title</th>
+								<th scope="col">Category</th>
+								<th scope="col">Price</th>
+								<th scope="col">Discount</th>
+								<th scope="col">Discount Price</th>
+								<!-- <th scope="col">Status</th> -->
+								<th scope="col">Stock</th>
+								<th scope="col">Action</th>
+							</tr>
+						</thead>
+						<tbody>
+							
+
+						</tbody>
+					</table>
+
+					<div class="row">
+						
+
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- 	</div> -->
+	</section>
+</body>
+</html>
