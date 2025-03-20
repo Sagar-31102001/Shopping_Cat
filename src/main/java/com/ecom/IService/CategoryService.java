@@ -15,4 +15,6 @@ public interface CategoryService
 	public abstract boolean deleteCategory(int id);
 	
 	public abstract Category getCategory(int id);
+	
+	
 }

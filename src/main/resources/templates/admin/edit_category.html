@@ -25,16 +25,17 @@
 
 						</div>
 						<div class="card-body">
-							<form action="updateCategory" method="post"
+							<form action="/ecom/admin/updateCategory" method="post"
 								enctype="multipart/form-data">
+								
 								<input type="hidden" name="id" th:value="${category.id}">
 								<div class="mb-3">
-									<label>Enter Category</label> <input type="text" name="name"
-										th:value="${category.name}" class="form-control">
+									<label>Enter Category</label> <input type="text" name="name" th:value="${category.name}"
+										class="form-control">
 								</div>
 
 								<div class="mb-3">
-									<label>Upload Image</label> <input type="file" name="file"
+									<label>Upload Image</label> <input type="file" name="file"  th:value="${category.imagename}"
 										class="form-control">
 								</div>
 								<img th:src="@{'/img/category_img/'+${category.imagename}}"
