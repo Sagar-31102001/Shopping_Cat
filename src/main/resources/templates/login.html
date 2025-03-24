@@ -14,19 +14,17 @@
 				</div>
 				<div class="col-md-6 mt-3 p-5">
 					<div class="card shadow p-3 mb-5 bg-body-tertiary rounded">
-						<div class="card-header">
-							<p class="fs-4 text-center">Login</p>
-							
-							<!-- <div th:if="${param.error}"
-								class="alert alert-danger text-center">
+						<div th:if="${param.error}" class="alert alert-danger text-center">
 
-							</div> -->
+							Invalid email and password 
 
-							<!-- <div th:if="${param.logout}" class="alert alert-success">
-								Logout Sucessfully</div> -->
 						</div>
+
+						<div th:if="${param.logout}" class="alert alert-success">
+							Logout Sucessfully</div>
 						<div class="card-body">
-							<form action="/login" method="post">
+
+							<form action="login" method="post">
 								<div class="mb-3">
 									<label class="form-label">Email</label> <input required
 										class="form-control" name="username" type="email">
@@ -42,8 +40,8 @@
 						</div>
 
 						<div class="card-footer text-center">
-							<a href="#" class="text-decoration-none">Forgot
-								Password</a><br> Don't have an account ? <a href="#"
+							<!-- <a href="#" class="text-decoration-none">Forgot Password</a> --><br>
+							Don't have an account ? <a href="register"
 								class="text-decoration-none">Create one </a>
 						</div>
 					</div>

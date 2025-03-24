@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="https://www.thymeleaf.org"
-	data-th-replace="~{base :: layout(~{::section})}"
->
+	data-th-replace="~{base :: layout(~{::section})}">
 <head>
 <meta charset="ISO-8859-1">
 <title>signup</title>
@@ -17,18 +16,18 @@
 					<div class="card shadow p-3 mb-5 bg-body-tertiary rounded">
 						<div class="card-header text-center">
 							<p class="fs-4 text-center">Register</p>
-							<!-- <th:block th:if="${session.succMsg}">
+							<th:block th:if="${session.succMsg}">
 								<p class="text-success fw-bold">[[${session.succMsg}]]</p>
-								<th:block th:text="${@commnServiceImpl.removeSessionMessage()}"></th:block>
-							</th:block> -->
+								<th:block th:text="${@commonServiceImpl.removeMessage()}"></th:block>
+							</th:block>
 
-							<!-- <th:block th:if="${session.errorMsg}">
+							<th:block th:if="${session.errorMsg}">
 								<p class="text-danger fw-bold">[[${session.errorMsg}]]</p>
-								<th:block th:text="${@commnServiceImpl.removeSessionMessage()}"></th:block>
-							</th:block> -->
+								<th:block th:text="${@commonServiceImpl.removeMessage()}"></th:block>
+							</th:block>
 						</div>
 						<div class="card-body">
-							<form action="/ecom/saveUser" enctype="multipart/form-data"
+							<form action="saveUser" enctype="multipart/form-data"
 								id="userRegister" novalidate method="post">
 								<div class="row">
 									<div class="col">
@@ -84,30 +83,28 @@
 											id="pass">
 									</div>
 
-									<div class="col">
+									<!-- <div class="col">
 										<label class="form-label">Confirm Password</label> <input
 											required class="form-control" name="confirmpassword"
 											type="password">
 									</div>
-
-								</div>
-
-
-
-								<div class="mb-3">
-									<label class="form-label">Profile Image</label> <input
-										class="form-control" name="img" type="file">
+									
+ -->
+									<div class="col">
+										<label class="form-label">Profile Image</label> <input
+											class="form-control" name="img" type="file">
+									</div>
 								</div>
 
 								<button type="submit"
-									class="btn bg-primary text-white col-md-12">Register</button>
+									class="btn bg-primary text-white col-md-12 mt-2">Register</button>
 							</form>
 						</div>
 
 						<div class="card-footer text-center">
 
-							have an account ? <a href="/ecom/login" class="text-decoration-none">Login
-							</a>
+							have an account ? <a href="signin"
+								class="text-decoration-none">Login </a>
 						</div>
 					</div>
 				</div>

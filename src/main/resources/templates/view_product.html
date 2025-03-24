@@ -10,8 +10,16 @@
 		<div class="container card-sh" style="margin-top: 70px">
 			<div class="col-md-12 p-5">
 				<div class="row">
+					<th:block th:if="${session.succMsg}">
+						<p class="text-success fw-bold">[[${session.succMsg}]]</p>
+						<th:block th:text="${@commonServiceImpl.removeMessage()}"></th:block>
+					</th:block>
 
-
+					<th:block th:if="${session.errorMsg}">
+						<p class="text-danger fw-bold">[[${session.errorMsg}]]</p>
+						<th:block th:text="${@commonServiceImpl.removeMessage()}"></th:block>
+					</th:block>
+						
 
 					<div class="col-md-6 text-end">
 						<img th:src="@{'/img/product_img/'+${product.image}}"
@@ -36,40 +44,28 @@
 
 							</p>
 
-							<!-- <div class="row">
-								<div class="col-md-4 text-success text-center p-2">
-									<i class="fas fa-money-bill-wave fa-2x"></i>
-									<p>Cash On Delivery</p>
+							
+							<th:block th:if="${user==null}">
+								<div>
+									<a href="/signin" class="btn btn-danger col-md-12">Add To
+										Cart</a>
+										<!-- <p>Must Be Login</p> -->
 								</div>
-								<div class="col-md-4 text-danger text-center p-2">
-									<i class="fas fa-undo-alt fa-2x"></i>
-									<p>Return Available</p>
+								
+							</th:block>
+							<th:block th:if="${user!=null}">
+								<div>
+									<a th:href="@{'/user/addCart?pid='+${product.id}+'&uid='+${user.id}}" class="btn btn-danger col-md-12">Add To
+										Cart</a>
+										<!-- <p>user login</p> -->
 								</div>
-								<div class="col-md-4 text-primary text-center p-2">
-									<i class="fas fa-truck-moving fa-2x"></i>
-									<p>Free Shipping</p>
+								<div>
+									<a th:href="@{'/user/orderPlace?pid='+${product.id}}" class="btn text-white bg-success col-md-12 mt-2">Order
+										Product</a>
 								</div>
-							</div> -->
+							</th:block>
 
-							<!-- <th:block>
-								<th:block>
-									<a href="/ecom/login" class="btn btn-danger col-md-12">Add
-										To Cart</a>
-								</th:block>
-							</th:block> -->
-
-							<div>
-								<a href="/ecom/login" class="btn btn-danger col-md-12">Add
-									To Cart</a>
-							</div>
-
-							<div>
-								<a href="#" class="btn text-white bg-success col-md-12 mt-2">Order
-									Product</a>
-							</div>
-							<!-- <th:block>
-								<a href="#" class="btn text-white bg-success col-md-12 mt-2">Order Product</a>
-							</th:block> -->
+							
 
 						</div>
 

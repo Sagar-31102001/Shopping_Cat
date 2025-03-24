@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org"
+	data-th-replace="~{base :: layout(~{::section})}">
+<head>
+<meta charset="ISO-8859-1">
+<title>product details</title>
+</head>
+<body>
+	<section>
+		<div class="container card-sh" style="margin-top: 70px">
+			<div class="col-md-12 p-5">
+				<div class="row">
+					<p class="text-center">Product Details</p>
+
+					<div class="col-md-6 text-end">
+						<img th:src="@{'/img/product_img/'+${product.image}}"
+							width="330px" height="400px">
+
+					</div>
+
+					<div class="col-md-6">
+
+						<div class="col-md-6">
+							<p>
+								<span class="fw-bold">Product Name :[[${product.title}]]</span>
+								<br> <span class="fw-bold">Description :
+									[[${product.description}]] </span>
+							</p>
+							<p class="fs-5 fw-bold">
+								Price :&nbsp;<i class="fas fa-rupee-sign"></i>
+								[[${product.price}]]
+							</p>
+
+							<div class="text-center">
+								<a href="#" class="btn btn-warning"> Proceed Payment</a>
+							</div>
+
+						</div>
+					</div>
+				</div>
+
+			</div>
+		</div>
+	</section>
+</body>
+</html>

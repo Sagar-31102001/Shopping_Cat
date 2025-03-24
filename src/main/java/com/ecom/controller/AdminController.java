@@ -6,6 +6,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
+import java.security.Principal;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,8 +24,11 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.ecom.model.Category;
 import com.ecom.model.Product;
+import com.ecom.model.UserDtls;
+import com.ecom.service_impl.CartServiceImpl;
 import com.ecom.service_impl.CategoryServiceImpl;
 import com.ecom.service_impl.ProductServiceImpl;
+import com.ecom.service_impl.UserServiceImpl;
 
 import jakarta.servlet.http.HttpSession;
 
@@ -38,10 +42,33 @@ public class AdminController
 	@Autowired
 	private ProductServiceImpl prdServiceImpl;
 	
+	@Autowired
+	private UserServiceImpl userService;
+	
+	@Autowired
+	private CartServiceImpl cartService;
+	
 	@GetMapping("/")
 	public String index()
 	{
 		return "admin/index";
+	}
+	
+	
+	@ModelAttribute
+	public void getUserDetails(Principal principal,Model m)
+	{
+		if(principal!=null)
+		{
+			String email = principal.getName();
+			
+			UserDtls user = userService.getUserByEmail(email);
+			
+			m.addAttribute("user", user);
+			
+			int countCart = cartService.getCountCart(user.getId());
+			m.addAttribute("count", countCart);
+		}
 	}
 	
 	
