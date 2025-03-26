@@ -9,12 +9,13 @@
 	<section>
 
 		<div class="container mt-5 p-5">
-			<form action="save-order" method="post" id="orders">
+			<form action="specific-save-order" method="post" id="orders">
 				<div class="row">
 
 					<div class="col-md-6">
 
-
+						<input type="hidden" name="id" th:value="${product.id}">
+					<!-- 	<input type="hidden" name="uid" th:value="${user.id}"> -->
 						<div class="mb-3 row">
 							<p class="text-center fs-4">Billing Address</p>
 							<hr>
@@ -72,7 +73,7 @@
 										<tr>
 											<td>Total price</td>
 											<td>:</td>
-											<td>&#8377; [[${totalAmount}]] </td>
+											<td>&#8377; [[${price}]]  </td>
 										</tr>
 										<tr>
 											<td>Delivery Fee</td>
@@ -89,7 +90,7 @@
 										<tr class="border-top">
 											<td>Total Price</td>
 											<td>:</td>
-											<td>&#8377; [[${withTaxPrice}]]</td>
+											<td>&#8377; [[${withTexPrice}]]</td>
 										</tr>
 									</tbody>
 								</table>

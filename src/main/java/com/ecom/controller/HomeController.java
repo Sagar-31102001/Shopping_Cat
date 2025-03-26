@@ -107,6 +107,14 @@ public class HomeController
 		return "product";
 	}
 	
+	@GetMapping("/specificCategory")
+	public String specificCategory(Model m,@RequestParam String category)
+	{
+		List<Product> allProducts = productServiceImpl.getAllProducts(category);
+		m.addAttribute("products", allProducts);
+		return "specific_category";
+	}
+	
 	@GetMapping("/viewproduct/{id}")
 	public String product(@PathVariable int id,Model m)
 	{

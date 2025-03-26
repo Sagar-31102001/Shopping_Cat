@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	th:replace="~{base::layout(~{::section})}">
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+	<section>
+		<div class="container mt-5 p-5">
+			<div class="row">
+				<p class="text-center fs-3">My Orders</p>
+				<th:block th:if="${session.succMsg}">
+					<p class="text-success fw-bold">[[${session.succMsg}]]</p>
+					<th:block th:text="${@commonServiceImpl.removeMessage()}"></th:block>
+				</th:block>
+
+				<th:block th:if="${session.errorMsg}">
+					<p class="text-danger fw-bold">[[${session.errorMsg}]]</p>
+					<th:block th:text="${@commonServiceImpl.removeMessage()}"></th:block>
+				</th:block>
+				<div class="col-md-12 ">
+
+					<table class="table table-bordered card-sh">
+						<thead>
+							<tr>
+								<th scope="col">Image</th>
+								<th scope="col">Product Name</th>
+								<th scope="col">Price</th>
+								<th scope="col">Date</th>
+								<th scope="col">Billing Names</th>
+								<th scope="col">Action</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr th:each="o:${orders}">
+								<th scope="row"><img
+									th:src="@{'/img/product_img/'+${o.product.image}}" width="70px"
+									height="70px"></th>
+								<td>[[${o.product.title}]]</td>
+								<td>[[${o.orderDate}]]</td>
+
+								<td>Quantity : [[${o.quantity}]] <br>Price :
+									[[${o.price}]] <br>Total Price :[[${o.quantity *
+									o.price}]]
+								</td>
+								<td>[[${o.orderAddress.lastName}]]</td>
+
+								<td>
+									<!-- th:href="@{'/user/deleteCart?cid='+${cart.id}}" --> <a
+									th:href="@{'/user/cancel?oid='+${o.id}}" class="btn btn-danger btn-sm"><i
+										class="fa-solid fa-trash  fa-1x"></i> Cancel</a>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+
+		</div>
+	</section>
+</body>
+</html>

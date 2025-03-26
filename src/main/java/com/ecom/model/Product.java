@@ -26,6 +26,9 @@ public class Product
 	private Double price;
 
 	private String image;
+	
+	
+	
 
 	public Integer getId() {
 		return id;

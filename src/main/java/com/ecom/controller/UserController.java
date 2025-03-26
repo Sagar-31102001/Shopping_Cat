@@ -9,13 +9,17 @@ import org.springframework.ui.Model;
 import org.springframework.util.ObjectUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.ecom.model.Cart;
+import com.ecom.model.OrderRequest;
 import com.ecom.model.Product;
+import com.ecom.model.ProductOrder;
 import com.ecom.model.UserDtls;
 import com.ecom.service_impl.CartServiceImpl;
+import com.ecom.service_impl.OrderServiceImpl;
 import com.ecom.service_impl.ProductServiceImpl;
 import com.ecom.service_impl.UserServiceImpl;
 
@@ -31,8 +35,12 @@ public class UserController
 	@Autowired
 	private CartServiceImpl cartServiceImpl;
 	
+	
 	@Autowired
 	private ProductServiceImpl productServiceImpl;
+	
+	@Autowired
+	private OrderServiceImpl ordServiceImpl;
 	
 	@GetMapping("/")
 	public String home()
@@ -124,14 +132,108 @@ public class UserController
 	}
 	
 	// order place
-	@GetMapping("/orderPlace")
-	public String orderPlace(@RequestParam Integer pid,Model m)
+	
+	@GetMapping("/orders")
+	public String orderPage(Principal p , Model m)
+	{
+		UserDtls user= getLoginUserDetails(p);
+		List<Cart> carts = cartServiceImpl.getCartsByUser(user.getId());
+		
+		
+		if (!carts.isEmpty()) 
+		{
+
+			Double totalAmount = carts.get(carts.size()-1).getTotalAmount();
+			Double withTaxPrice=totalAmount+250+100;
+			m.addAttribute("carts",carts);
+			m.addAttribute("totalAmount", totalAmount);
+			m.addAttribute("withTaxPrice", withTaxPrice);
+			return "/user/order";
+		} 
+		else 
+		{
+			return "/user/empty";
+		}
+		
+	}
+	
+	@PostMapping("/save-order")
+	public String saveOrder(@ModelAttribute OrderRequest orderRequest , Principal p)
+	{
+		System.out.println(orderRequest);
+		UserDtls user = getLoginUserDetails(p);
+		
+		ordServiceImpl.saveOrder(user.getId(), orderRequest);
+		return "redirect:/user/success";
+	}
+	
+	@GetMapping("/success")
+	public String loadSuccess() {
+		return "/user/success";
+	}
+	
+	@GetMapping("/user-orders")
+	public String myOrder(Model m, Principal p) {
+		UserDtls loginUser = getLoginUserDetails(p);
+		List<ProductOrder> orders = ordServiceImpl.getOrdersByUser(loginUser.getId());
+		m.addAttribute("orders", orders);
+		
+		return "/user/my_orders";
+	}
+	
+	// For Specific Product Order
+	@GetMapping("/specific_order")
+	public String specificOrder(@RequestParam Integer pid,Model m,Principal p)
 	{
 		Product product = productServiceImpl.getProductById(pid);
-		
 		System.out.println(product);
 		
+		m.addAttribute("price", product.getPrice());
+		Double withTexPrice=product.getPrice()+250+100;
+		m.addAttribute("withTexPrice", withTexPrice);
 		m.addAttribute("product", product);
-		return "/user/order";
+		
+		// User Details
+		UserDtls user = getLoginUserDetails(p);
+		m.addAttribute("user",user);
+		
+		return "/user/specific_order";
 	}
+	
+	@PostMapping("/specific-save-order")
+	public String specificSaveOrder(@ModelAttribute OrderRequest orderRequest,@RequestParam Integer id,Principal p)
+	{
+		Product product = productServiceImpl.getProductById(id);
+		UserDtls user = getLoginUserDetails(p);
+		System.out.println("-------------------------");
+		System.out.println(product);
+		System.out.println(user);
+		
+		
+		ordServiceImpl.specificUser(user.getId(),orderRequest, product);
+		
+		return "redirect:/user/success";
+	}
+	
+	// Order Cancellation
+	@GetMapping("/cancel")
+	public String cancellProductOrder(@RequestParam Integer oid,HttpSession session)
+	{
+		boolean cancellOrder = ordServiceImpl.cancellOrder(oid);
+		
+		if (cancellOrder) 
+		{
+			session.setAttribute("succMsg", "Order Successfully Cancelled "+oid);
+			
+			return "redirect:/user/user-orders";
+		}
+		else 
+		{
+			session.setAttribute("errorMsg", "Order Cancellation Faild...!!!");
+			
+			return "redirect:/user/user-orders";
+		}
+		
+	}
+	
 }

@@ -109,6 +109,110 @@ $(function(){
 		}
 	})
 	
+	// Orders Validation
+
+	var $orders=$("#orders");
+
+	$orders.validate({
+			rules:{
+				firstName:{
+					required:true,
+					lettersonly:true
+				},
+				lastName:{
+					required:true,
+					lettersonly:true
+				}
+				,
+				email: {
+					required: true,
+					space: true,
+					email: true
+				},
+				mobileNo: {
+					required: true,
+					space: true,
+					numericOnly: true,
+					minlength: 10,
+					maxlength: 12
+
+				},
+				address: {
+					required: true,
+					all: true
+
+				},
+
+				city: {
+					required: true,
+					space: true
+
+				},
+				state: {
+					required: true,
+
+
+				},
+				pincode: {
+					required: true,
+					space: true,
+					numericOnly: true
+
+				},
+				paymentType:{
+				required: true
+				}
+			},
+			messages:{
+				firstName:{
+					required:'first required',
+					lettersonly:'invalid name'
+				},
+				lastName:{
+					required:'last name required',
+					lettersonly:'invalid name'
+				},
+				email: {
+					required: 'email name must be required',
+					space: 'space not allowed',
+					email: 'Invalid email'
+				},
+				mobileNo: {
+					required: 'mob no must be required',
+					space: 'space not allowed',
+					numericOnly: 'invalid mob no',
+					minlength: 'min 10 digit',
+					maxlength: 'max 12 digit'
+				}
+			   ,
+				address: {
+					required: 'address must be required',
+					all: 'invalid'
+
+				},
+
+				city: {
+					required: 'city must be required',
+					space: 'space not allowed'
+
+				},
+				state: {
+					required: 'state must be required',
+					space: 'space not allowed'
+
+				},
+				pincode: {
+					required: 'pincode must be required',
+					space: 'space not allowed',
+					numericOnly: 'invalid pincode'
+
+				},
+				paymentType:{
+				required: 'select payment type'
+				}
+			}	
+	})
+	
 	})
 
 jQuery.validator.addMethod('lettersonly', function(value, element) {
