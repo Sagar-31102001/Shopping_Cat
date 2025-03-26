@@ -194,8 +194,8 @@ public class UserController
 		m.addAttribute("product", product);
 		
 		// User Details
-		UserDtls user = getLoginUserDetails(p);
-		m.addAttribute("user",user);
+		//UserDtls user = getLoginUserDetails(p);
+		//m.addAttribute("user",user);
 		
 		return "/user/specific_order";
 	}

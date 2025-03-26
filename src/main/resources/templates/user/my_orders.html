@@ -38,12 +38,11 @@
 									th:src="@{'/img/product_img/'+${o.product.image}}" width="70px"
 									height="70px"></th>
 								<td>[[${o.product.title}]]</td>
-								<td>[[${o.orderDate}]]</td>
-
 								<td>Quantity : [[${o.quantity}]] <br>Price :
 									[[${o.price}]] <br>Total Price :[[${o.quantity *
-									o.price}]]
+									o.price + (350)}]]
 								</td>
+								<td>[[${o.orderDate}]]</td>
 								<td>[[${o.orderAddress.lastName}]]</td>
 
 								<td>
