@@ -45,9 +45,11 @@ public class SecurityConfig
 	{
 		
 		httpSecurity.csrf(customizer->customizer.disable())
-							.authorizeHttpRequests(	req->req.requestMatchers("/user/**").hasRole("USER")
+							.authorizeHttpRequests(	req->req
 							.requestMatchers("/admin/**").hasRole("ADMIN")
+							.requestMatchers("/user/**").hasRole("USER")
 							.requestMatchers("/**").permitAll()
+							.anyRequest().authenticated()
 										).formLogin(form->form.loginPage("/signin")
 												.loginProcessingUrl("/login")
 												//.defaultSuccessUrl("/"))
